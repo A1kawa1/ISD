@@ -1,0 +1,9 @@
+<a href="{% url 'user:home' %}">На главную</a>
+{% for el in users %}
+<p> Фамилия: {{ el.surename }}</p>
+<p> Имя: {{ el.name }}</p>
+<p> Отчество: {{ el.patronymic }}</p>
+
+<a href="{% url 'user:select_role' el.id %}">Выбрать роль</a>
+<hr>
+{% endfor %}
