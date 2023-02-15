@@ -1,8 +1,14 @@
+{% extends "main.html" %}
+{% block content %}
+
+
 {% if not staf %}
     {% if user %}
     <a href="{% url 'user:signup' %}">Регистрация</a>
+    <br>
     <a href="{% url 'user:login' %}">Войти</a>
-    <br> 
+    <br>
+    <hr>
     {% for el in users %}
     {% if el.role %}
     <p> Фамилия: {{ el.surename }}</p>
@@ -47,3 +53,5 @@
 
 {% endfor %}
 {% endif %}
+
+{% endblock content %}
