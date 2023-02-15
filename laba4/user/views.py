@@ -14,7 +14,7 @@ class SignUp(CreateView):
 
 def home(request):
     user = request.user
-    users = User.objects.all()
+    users = User.objects.all()[::-1]
     if not user.is_authenticated:
         context = {
             'staf': False,
@@ -26,7 +26,8 @@ def home(request):
         print('role None')
         return render(request, 'home.html', {
             'staf': False,
-            'user': False
+            'user': False,
+            'users': users
         })
     return render(request, 'home.html', {
         'staf': True,
@@ -62,7 +63,7 @@ def deletе_user(request, id):
 
 @login_required
 def create_user(request):
-    users = User.objects.filter(role=None)
+    users = User.objects.filter(role=None)[::-1]
     form = SelectRoleForm(request.POST or None)
     if request.user.role != 'director':
         return redirect('user:home')
