@@ -1,0 +1,30 @@
+{% if not staf %}
+    {% if user %}
+    <a href="{% url 'user:signup' %}">Регистрация</a>
+    <a href="{% url 'user:login' %}">Войти</a>
+    <br> 
+    {% for el in users %}
+    <p> Фамилия: {{ el.surname }}</p>
+    <p> Имя: {{ el.name }}</p>
+    <p> Отчество: {{ el.patronymic }}</p>
+    <p> Должность: {{ el.role }}</p>
+    <p> Телефон: {{ el.phone }}</p>
+    <hr>
+    {% endfor %}
+    {% else %}
+    <a href="{% url 'user:logout' %}">Выйти</a>
+    <p>Дождитесь пока вам выдадут роль</p>
+    {% endif %}
+{% else %}
+
+<a href="{% url 'user:logout' %}">Выйти</a>
+{% for el in users %}
+<p> Фамилия: {{ el.surname }}</p>
+<p> Имя: {{ el.name }}</p>
+<p> Отчество: {{ el.patronymic }}</p>
+<p> Должность: {{ el.role }}</p>
+<p> Телефон: {{ el.phone }}</p>
+<p> Адресс: {{ el.adress }}</p>
+<hr>
+{% endfor %}
+{% endif %}
