@@ -1,9 +1,17 @@
 <a href="{% url 'user:home' %}">На главную</a>
 {% for el in users %}
+{% if not el.is_staff and client.username != el.username %}
 <p> Фамилия: {{ el.surename }}</p>
 <p> Имя: {{ el.name }}</p>
 <p> Отчество: {{ el.patronymic }}</p>
 
-<a href="{% url 'user:select_role' el.id %}">Выбрать роль</a>
+
+<form method="post" action="{% url 'user:select_role' el.id%}">
+    {% csrf_token %}
+    <p> Должность: {{ form.role }}</p>
+    <button type="submit">select</button>
+</form>
+
 <hr>
+{% endif %}
 {% endfor %}

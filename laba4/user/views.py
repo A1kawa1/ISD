@@ -63,18 +63,14 @@ def deletе_user(request, id):
 @login_required
 def create_user(request):
     users = User.objects.filter(role=None)
+    form = SelectRoleForm(request.POST or None)
     if request.user.role != 'director':
         return redirect('user:home')
     return render(request, 'create_user.html', {
-        'users': users
+        'users': users,
+        'form': form
     })
-    # form = СhangeUser(request.POST or None)
-    # if form.is_valid():
-    #     form.save()
-    #     return redirect('user:home')
-    # return render( request, 'change_info.html',{
-    #     'form': form
-    # })
+
 
 
 @login_required
@@ -86,9 +82,4 @@ def select_role(request, id):
     if form.is_valid():
         user.role = form.cleaned_data.get('role')
         user.save()
-        return redirect('user:create_user')
-    return render( request, 'select_role.html',{
-        'form': form,
-        'surename': user.surename,
-        'name': user.name
-    })
+    return redirect('user:create_user')
