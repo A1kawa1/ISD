@@ -6,6 +6,7 @@ from user.views import (home, SignUp, change_info,
 
 app_name = 'user'
 urlpatterns = [
+    path('', home, name='home'),
     path(
         'login/',
         LoginView.as_view(template_name='login.html'),
@@ -21,7 +22,6 @@ urlpatterns = [
         SignUp.as_view(),
         name='signup'
     ),
-    path('home/', home, name='home'),
     path(
         'change/<int:id>/',
         change_info,
