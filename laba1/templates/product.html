@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block content %}
+
+    {% include 'includes/header.html' %}
+    <a href="{% url 'user:add_product' %}">Добавить товар</a>
+    <hr>
+    {% for el in products %}
+        <p>Наименование: {{ el.name }}</p>
+        <p>Кол-во: {{ el.count }}</p>
+        <p>Цена: {{ el.price }}</p>
+        <a href="{% url 'user:edit_product' el.id %}">Редактировать товар</a>
+        <hr>
+    {% endfor %}
+
+{% endblock content %}

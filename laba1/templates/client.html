@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+{% block content %}
+    {% include 'includes/header.html' %}
+
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" aria-label="Search" name="search">
+        <button  class="btn btn-primary" type="submit">Поиск</button>
+    </form>
+    <hr>
+
+    {% for el in client %}
+        <p>Имя: {{ el.first_name }}</p>
+        <p>Фамилия: {{ el.last_name }}</p>
+        <p>Общий счет покупок: {{ el.check_purchase }}</p>
+        <p>Текущий счет: {{ el.curent_purchase }}</p>
+        <p>Потолок кредита: {{ el.credit_limit }}</p>
+        <p>Текущий долг: {{ el.curend_debt }}</p>
+        <p>Остаток кредита: {{ el.lost_credit }}</p>
+        <hr>
+    {% endfor %}
+{% endblock content %}

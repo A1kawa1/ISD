@@ -1,0 +1,12 @@
+{% if not el.type == "бартер" %}
+    <p>Наименование: {{ el.product }}</p>
+    <p>Кол-во: {{ el.count }}</p>
+    <p>Вид продажи: {{ el.type }}</p>
+    <p>Цена: {{ el.price }}</p>
+{% else %}
+<p>Наименование: {{ el.product }}</p>
+<p>Кол-во: {{ el.count }}</p>
+<p>Вид продажи: {{ el.type }}</p>
+<p>Наименование (взамен): {{ el.product2 }}</p>
+<p>Кол-во (взамен): {{ el.count2 }}</p>
+{% endif %}

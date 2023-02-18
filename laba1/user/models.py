@@ -47,10 +47,10 @@ class User(AbstractUser):
 
 class Order(models.Model):
     CHOIES = (
-        ('cash', 'наличный расчет'),
-        ('card', 'безналичный расчет'),
-        ('credit', 'кредит'),
-        ('barter', 'бартер')
+        ('наличный расчет', 'наличный расчет'),
+        ('безналичный расчет', 'безналичный расчет'),
+        ('кредит', 'кредит'),
+        ('бартер', 'бартер')
     )
     user = models.ForeignKey(
         User,
@@ -59,6 +59,7 @@ class Order(models.Model):
     )
     product = models.ForeignKey(
         Product,
+        related_name='product1',
         on_delete=models.CASCADE
     )
     count = models.IntegerField(
@@ -74,5 +75,21 @@ class Order(models.Model):
     price = models.IntegerField(
         validators=[
             MinValueValidator(0)
-        ]
+        ],
+        blank=True,
+        null=True
+    )
+    product2 = models.ForeignKey(
+        Product,
+        related_name='product2',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+    count2 = models.IntegerField(
+        validators=[
+            MinValueValidator(0)
+        ],
+        blank=True,
+        null=True
     )

@@ -2,33 +2,35 @@
 {% block content %}
 
 {% if not request.user.is_authenticated %}
-<a href="{% url 'user:signup' %}">Регистрация</a>
-<br>
-<a href="{% url 'user:login' %}">Войти</a>
-<br>
-<hr>
-{% else %}
-<a href="{% url 'user:logout' %}">Выйти</a>
-<br>
-<a href="{% url 'user:order' %}">
-    Добавить заказ
-</a>
-<hr>
-
-<p>Общий счет покупок: {{ request.user.check_purchase }}</p>
-<p>Текущий счет: {{ request.user.curent_purchase }}</p>
-<p>Потолок кредита: {{ request.user.credit_limit }}</p>
-<p>Текущий долг: {{ request.user.curend_debt }}</p>
-<p>Остаток кредита: {{ request.user.lost_credit }}</p>
-<hr>
-
-{% for el in orders %}
-    <p>Наименование: {{ el.product }}</p>
-    <p>Кол-во: {{ el.count }}</p>
-    <p>Вид продажи: {{ el.type }}</p>
-    <p>Цена: {{ el.price }}</p>
+    <a href="{% url 'user:signup' %}">Регистрация</a>
+    <br>
+    <a href="{% url 'user:login' %}">Войти</a>
+    <br>
     <hr>
-{% endfor %}
+{% else %}
+{% if  request.user.is_staff%}
+    {% include 'includes/header.html' %}
+{% else %}
+
+    <a href="{% url 'user:logout' %}">Выйти</a>
+    <br>
+    <a href="{% url 'user:order' %}">Добавить заказ</a>
+    <hr>
+
+    <p>Общий счет покупок: {{ request.user.check_purchase }}</p>
+    <p>Текущий счет: {{ request.user.curent_purchase }}</p>
+    <p>Потолок кредита: {{ request.user.credit_limit }}</p>
+    <p>Текущий долг: {{ request.user.curend_debt }}</p>
+    <p>Остаток кредита: {{ request.user.lost_credit }}</p>
+    <hr>
+
+    {% for el in orders %}
+        {% include 'includes/order_card.html' %}
+        <a href="{% url 'user:del_order' el.id %}">удалить заказ</a>
+        <hr>
+    {% endfor %}
+
+{% endif %}
 {% endif %}
 
 {% endblock content %}
