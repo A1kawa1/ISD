@@ -1,7 +1,6 @@
 {% extends "main.html" %}
 {% block content %}
 
-
 {% if not staf %}
     {% if user %}
     <a href="{% url 'user:signup' %}">Регистрация</a>
@@ -26,33 +25,33 @@
     {% endfor %}
 {% else %}
 
-<a href="{% url 'user:logout' %}">Выйти</a>
-{% if client.role == "director" %}
-<br>
-<a href="{% url 'user:create_user' %}">Добавить сотрудника</a>
-{% endif %}
-<hr>
-{% for el in users %}
+    <a href="{% url 'user:logout' %}">Выйти</a>
+    {% if client.role == "director" %}
+    <br>
+    <a href="{% url 'user:create_user' %}">Добавить сотрудника</a>
+    {% endif %}
+    <hr>
+    {% for el in users %}
 
-{% if not el.is_staff and client.username != el.username and el.role %}
-<p> Фамилия: {{ el.surename }}</p>
-<p> Имя: {{ el.name }}</p>
-<p> Отчество: {{ el.patronymic }}</p>
-<p> Должность: {{ el.role }}</p>
-<p> Телефон: {{ el.phone }}</p>
-<p> Адресс: {{ el.adress }}</p>
+    {% if not el.is_staff and client.username != el.username and el.role %}
+    <p> Фамилия: {{ el.surename }}</p>
+    <p> Имя: {{ el.name }}</p>
+    <p> Отчество: {{ el.patronymic }}</p>
+    <p> Должность: {{ el.role }}</p>
+    <p> Телефон: {{ el.phone }}</p>
+    <p> Адресс: {{ el.adress }}</p>
 
-{% if client.role == "vit_director" or client.role == "director" %}
-<a href="{% url 'user:change_info' el.id %}">Изменить данные</a>
-<br>
-{% endif %}
-{% if client.role == "director" %}
-<a href="{% url 'user:deletе_user' el.id %}">Удалить сотрудника</a>
-{% endif %}
-<hr>
-{% endif %}
+    {% if client.role == "vit_director" or client.role == "director" %}
+    <a href="{% url 'user:change_info' el.id %}">Изменить данные</a>
+    <br>
+    {% endif %}
+    {% if client.role == "director" %}
+    <a href="{% url 'user:deletе_user' el.id %}">Удалить сотрудника</a>
+    {% endif %}
+    <hr>
+    {% endif %}
 
-{% endfor %}
+    {% endfor %}
 {% endif %}
 
 {% endblock content %}

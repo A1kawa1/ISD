@@ -6,20 +6,20 @@
 <hr>
 {% for el in users %}
 {% if not el.is_staff and client.username != el.username %}
-<p> Фамилия: {{ el.surename }}</p>
-<p> Имя: {{ el.name }}</p>
-<p> Отчество: {{ el.patronymic }}</p>
+    <p> Фамилия: {{ el.surename }}</p>
+    <p> Имя: {{ el.name }}</p>
+    <p> Отчество: {{ el.patronymic }}</p>
 
 
-<form method="post" action="{% url 'user:select_role' el.id%}">
-    {% csrf_token %}
-    <p> Должность: {{ form.role }}</p>
-    <button type="submit" class="btn btn-primary">
-        Подтвердить
-    </button>
-</form>
+    <form method="post" action="{% url 'user:select_role' el.id%}">
+        {% csrf_token %}
+        <p> Должность: {{ form.role }}</p>
+        <button type="submit" class="btn btn-primary">
+            Подтвердить
+        </button>
+    </form>
 
-<hr>
+    <hr>
 {% endif %}
 {% endfor %}
 

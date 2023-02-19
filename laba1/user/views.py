@@ -85,7 +85,7 @@ def del_order(request, id):
 
 @login_required
 def barter(request):
-    order = Order.objects.filter(user=request.user).last()
+    order = Order.objects.filter(user=request.user, type='бартер').last()
     form = BarterForm(request.POST or None,
                       instance=order)
     if form.is_valid():
