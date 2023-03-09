@@ -1,8 +1,13 @@
+import os
+from dotenv import load_dotenv
 import telebot
 import requests
 from bs4 import BeautifulSoup
 
-bot = telebot.TeleBot(token='5999197476:AAEht2HSt2sqGCmCwlLuGKU3hn2JAJrKLSg')
+load_dotenv()
+TOKEN = os.getenv('TOKEN')
+
+bot = telebot.TeleBot(token=TOKEN)
 url = 'https://www.banki.ru/products/currency/cb/'
 currencies = ('USD', 'EUR', 'AUD', 'THB', 'BYN', 'JPY')
 
