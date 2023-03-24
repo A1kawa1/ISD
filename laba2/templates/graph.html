@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% block content %}
+    {% load static %}
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" aria-label="Search" name="Y_val">
+        <button  class="btn btn-primary" type="submit">Ввести</button>
+    </form>
+    {% if data %}
+    {% for el in data %}
+    {{el}}
+    {% endfor %}
+    {% endif %}
+    <hr>
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" aria-label="Search" name="Y_min">
+        <input class="form-control mr-sm-2" type="search" aria-label="Search" name="Y_max">
+        <button  class="btn btn-primary" type="submit">Ввести</button>
+    </form>
+    {% if Y_min %}Y_min = {{Y_min}}{% endif %}
+    {% if Y_max %}Y_max = {{Y_max}}{% endif %}
+    <hr>
+    {% if data %}
+    <img src="{% static 'saved_figure1.png' %}"
+        width="500"
+        height="500"
+        class="d-inline-block align-top"
+        alt="">
+    <img src="{% static 'saved_figure2.png' %}"
+        width="500"
+        height="500"
+        class="d-inline-block align-top"
+        alt="">
+    {% endif %}
+    {% if Y_min or Y_max %}
+    <img src="{% static 'saved_figure3.png' %}"
+        width="500"
+        height="500"
+        class="d-inline-block align-top"
+        alt="">
+    {% endif %}
+{% endblock content %}
