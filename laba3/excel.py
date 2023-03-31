@@ -27,7 +27,7 @@ def record_excel(count=5):
     chart.add_data(data_tmp, titles_from_data=True)
     chart.set_categories(titles)
     sheet.add_chart(chart, "E2")
-    wb.save('laba.xls')
+    wb.save('laba.xlsx')
 
 
 record_excel(5)
