@@ -20,11 +20,14 @@ def graph(request):
             x = np.arange(1, len(data)+1)
             DATA = list(zip(x, data))
             plt.plot(x, data)
+            plt.axhline (y=sum(data)/len(data), color='red', linestyle='--') 
             fig.savefig('static/saved_figure1.png')
             fig.clear()
-            plt.bar(data, [data.count(el) for el in data])
+            plt.bar(x, data)
+            plt.axhline (y=sum(data)/len(data), color='red', linestyle='--') 
             fig.savefig('static/saved_figure2.png')
         except ValueError:
+            print('Errore')
             pass
     context['data'] = [el[1] for el in DATA]
     tmp_DATA = DATA.copy()
