@@ -1,0 +1,19 @@
+{% if  request.user.is_staff%}
+    <a href="{% url 'pc:logout' %}">Выйти</a>
+    <br>
+    <a href="{% url 'pc:home' %}">На главную</a>
+    <br>
+    <a href="{% url 'pc:collector_orders' %}">Текушие заказы</a>
+    <br>
+    <a href="{% url 'pc:history_orders' %}">История заказов</a>
+    <br>
+    <a href="{% url 'pc:salary' %}">Зарплаты</a>
+    <br>
+    <a href="{% url 'pc:analise_order' %}">Анализ заказов на сборку</a>
+    <hr>
+{% else %}
+    <a href="{% url 'pc:logout' %}">Выйти</a>
+    <br>
+    <a href="{% url 'pc:add_AssemblyOrder' %}">Создать заказ</a>
+    <hr>
+{% endif %}

@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block content %}
+{% load user_filters %}
+{% include 'includes/header.html' %}
+<table class="lyo">
+    <tr style="border: 1px solid #000;">
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 10%;"><strong>№ п.п</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 20%;"><strong>Сотрудник</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 35%; "><strong>Документ начисления</strong></td>
+        <td class="lyo" style="text-align: center; width: 35%; "><strong>Сумма</strong></td>
+    </tr>
+    {% for el in data %}
+        <tr class="lyo" style="border: 1px solid #000; text-align: center;">
+            <td style="border-right: 1px solid black;"> {{ forloop.counter }} </td>
+            <td style="border-right: 1px solid black;"> {{ el.collector.get_full_name }} </td>
+            <td style="border-right: 1px solid black;"> Всего </td>
+            <td> {{ el.total }} </td>
+        </tr>
+        {% for order in el.data_orders %}
+            <tr class="lyo" style="border: 1px solid #000; text-align: center;">
+                <td></td>
+                <td style="border-right: 1px solid black;"></td>
+                <td style="border-right: 1px solid black;"> Наряд на сборку №{{ order.pk }} от {{ order.pub_date.date }} </td>
+                <td> {{ order.total_price }} </td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+</table>
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block content %}
+{% load user_filters %}
+{% include 'includes/header.html' %}
+<table class="lyo">
+    <tr style="border: 1px solid #000;">
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 30%;"><strong>Группа / Комплектующие</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 10%;"><strong>Процент</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 25%; "><strong>Количество</strong></td>
+        <td class="lyo" style="text-align: center; width: 35%; "><strong>Сумма</strong></td>
+    </tr>
+    {% for el in data %}
+        <tr class="lyo" style="border: 1px solid #000; text-align: center;">
+            <td> {{ el.group }} </td>
+            <td style="border-right: 1px solid black;"></td>
+            <td style="border-right: 1px solid black;"> {{ el.count }} </td>
+            <td> {{ el.total }} </td>
+        </tr>
+        {% for order in el.list_order %}
+            <tr class="lyo" style="border: 1px solid #000; text-align: center;">
+                <td style="border-right: 1px solid black;"> {{ order.accessories.name }} </td>
+                <td style="border-right: 1px solid black;"> {{ order.percent }}% </td>
+                <td style="border-right: 1px solid black;"> {{ order.count }} </td>
+                <td> {{ order.total }} </td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+</table>
+
+{% endblock content %}

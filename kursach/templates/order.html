@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% block content %}
+{% load user_filters %}
+<a href="{% url 'pc:home' %}">На главную</a>
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p> (укажите желаемые комплектующие, а наши работники согласуют их состав) </p>
+    <button type="submit" class="btn btn-primary">
+        Подтвердить
+    </button>
+</form>
+
+
+{% endblock content %}
