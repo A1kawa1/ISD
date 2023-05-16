@@ -2,7 +2,25 @@
 {% block content %}
 {% load user_filters %}
 <a href="{% url 'pc:user_order' %}">Назад</a>
-<table class="lyo">
+
+<table id="printMe" class="lyo">
+    <style>
+        @media print {
+            #printMe .hidden {
+                display: none;
+            }
+            #printMe {
+                font-size: 14px;
+                border: 1px solid #987;
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+            #printMe td,
+            #printMe th {
+                border: 1px solid #999;
+            }
+        }
+    </style>
     <tr style="border: 1px solid #000;">
         <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 10%;"><strong>Товар</strong></td>
         <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 20%;"><strong>Цена</strong></td>
@@ -24,5 +42,6 @@
         <td> {{ total_price }} </td>
     </tr>
 </table>
-
+<br>
+<button class="btn btn-primary" id="printTable">Печать таблицы</button>
 {% endblock content %}

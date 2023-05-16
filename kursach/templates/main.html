@@ -13,4 +13,36 @@
       {% block content %}{% endblock content %}
     </div> 
   </body>
+
+  <script 
+    src="https://code.jquery.com/jquery-3.4.1.min.js" 
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
+    crossorigin="anonymous">
+</script>
+
+<script>
+    jQuery(function($) {
+        const tableToPrint = document.getElementById("printMe");
+
+        function printData(tableToPrint) {
+            Popup($(tableToPrint).html());
+        }
+
+        function Popup(data) {
+            const mywindow = window.open("", "printMe", "height=600, width=1000");
+            mywindow.document.write("<link rel=\"stylesheet\" href=\"styles.css\" type=\"text/css\" />");
+            mywindow.document.write(tableToPrint.outerHTML);
+            mywindow.document.close();
+            mywindow.focus();
+            mywindow.print();
+            mywindow.close();
+            return true;
+        }
+
+        $(document).on("click", "#printTable", function() {
+            printData();
+            return false;
+        });
+    });
+</script>
 </html>
