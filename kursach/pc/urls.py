@@ -22,16 +22,6 @@ urlpatterns = [
         name='signup'
     ),
     path(
-        'order/',
-        add_AssemblyOrder,
-        name='add_AssemblyOrder'
-    ),
-    path(
-        'del_order/<int:id>/',
-        del_order,
-        name='del_order'
-    ),
-    path(
         'add_collector/<int:id>/',
         add_collector,
         name='add_collector'
@@ -60,15 +50,45 @@ urlpatterns = [
         'analise_order/',
         analise_order,
         name='analise_order'
+    ),
+    path(
+        'add_shoppinglist/<int:id>/',
+        add_shoppinglist,
+        name='add_shoppinglist'
+    ),
+    path(
+        'basket/',
+        basket,
+        name='basket'
+    ),
+    path(
+        'plus_count/<int:id>/',
+        plus_count,
+        name='plus_count'
+    ),
+    path(
+        'minus_count/<int:id>/',
+        minus_count,
+        name='minus_count'
+    ),
+    path(
+        'del_shop_item/<int:id>/',
+        del_shop_item,
+        name='del_shop_item'
+    ),
+    path(
+        'add_order/',
+        add_order,
+        name='add_order'
+    ),
+    path(
+        'user_order/',
+        user_order,
+        name='user_order'
+    ),
+    path(
+        'view_cheque/<int:id>/',
+        view_cheque,
+        name='view_cheque'
     )
-    # path(
-    #     'configure_accessories/<int:id>/',
-    #     configure_accessories,
-    #     name='configure_accessories'
-    # ),
-    # path(
-    #     'add_accessories/<int:id>/',
-    #     add_accessories,
-    #     name='add_accessories'
-    # )
 ]

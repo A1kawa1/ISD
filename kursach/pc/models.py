@@ -130,3 +130,37 @@ class AssemblyOrderAccessories(models.Model):
         count = self.accessories.count
         if not self.count is None and count < self.count:
             raise ValidationError(f'Доступно {count}')
+
+
+class ShoppingList(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь'
+    )
+    accessories = models.ForeignKey(
+        Accessories,
+        on_delete=models.CASCADE,
+        verbose_name='Комплектующее'
+    )
+    count = models.PositiveSmallIntegerField(
+        verbose_name='Количество',
+        validators=[
+            MinValueValidator(
+                limit_value=1,
+                message='Минимальное количество - 1'
+            )
+        ],
+        blank=True,
+        null=True
+    )
+
+    class Meta:
+        verbose_name = 'Товар в корзине'
+        verbose_name_plural = 'Товары в корзине'
+        default_related_name = 'shopping_list'
+
+    def clean(self) -> None:
+        count = self.accessories.count
+        if not self.count is None and count < self.count:
+            raise ValidationError(f'Доступно {count}')

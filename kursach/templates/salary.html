@@ -21,7 +21,7 @@
                 <td></td>
                 <td style="border-right: 1px solid black;"></td>
                 <td style="border-right: 1px solid black;"> Наряд на сборку №{{ order.pk }} от {{ order.pub_date.date }} </td>
-                <td> {{ order.total_price }} </td>
+                <td> {% widthratio order.total_price 100 3 %} </td>
             </tr>
         {% endfor %}
     {% endfor %}

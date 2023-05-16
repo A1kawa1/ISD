@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block content %}
+{% include 'includes/header.html' %}
+
+    {% for el in orders %}
+        <p> Комплектующие: </p>
+
+        {% for accessories in el.assembly_order_accessories.all %}
+        <p> {{ accessories.accessories.name }} - {{ accessories.count }} </p>
+        {% endfor %}
+        <p> Стоимость: {{ el.total_price }}р.</p>
+        {% if el.confirmation %}
+            <p> Статус: подтвержден </p>
+        {% else %}
+            <p> Статус: ожидает подтверждения </p>
+        {% endif %}
+        {% if el.assembled %}
+            <p> Статус сборки: собран </p>
+            <a href="{% url 'pc:view_cheque' el.id %}">посмотреть чек</a>
+        {% else %}
+            <p> Статус сборки: не собран </p>
+        {% endif %}
+        <hr>
+    {% endfor %}
+{% endblock content %}

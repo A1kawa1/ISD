@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% block content %}
+{% load user_filters %}
+<a href="{% url 'pc:user_order' %}">Назад</a>
+<table class="lyo">
+    <tr style="border: 1px solid #000;">
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 10%;"><strong>Товар</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 20%;"><strong>Цена</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 35%; "><strong>Количество</strong></td>
+        <td class="lyo" style="text-align: center; width: 35%; "><strong>Сумма</strong></td>
+    </tr>
+    {% for el in data %}
+        <tr class="lyo" style="border: 1px solid #000; text-align: center;">
+            <td style="border-right: 1px solid black;"> {{ el.accessories.name }} </td>
+            <td style="border-right: 1px solid black;"> {{ el.price }} </td>
+            <td style="border-right: 1px solid black;"> {{ el.count }} </td>
+            <td> {{ el.total }} </td>
+        </tr>
+    {% endfor %}
+    <tr class="lyo" style="border: 1px solid #000; text-align: center;">
+        <td></td>
+        <td></td>
+        <td style="border-right: 1px solid black;"> Всего </td>
+        <td> {{ total_price }} </td>
+    </tr>
+</table>
+
+{% endblock content %}

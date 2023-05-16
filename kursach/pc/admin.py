@@ -22,3 +22,8 @@ class AssemblyOrderAdmin(ModelAdmin):
     list_display = ('name', 'collector', 'pub_date',
                     'confirmation', 'assembled')
     inlines = (AccessoriesInline,)
+
+
+@register(ShoppingList)
+class GroupAdmin(ModelAdmin):
+    list_display = ('user', 'accessories', 'count')

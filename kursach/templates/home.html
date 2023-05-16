@@ -9,11 +9,11 @@
     <hr>
 {% else %}
     {% include 'includes/header.html' %}
-    
+    {% if request.user.is_staff%}
         {% for el in orders %}
-            {% if request.user.is_staff%}
+            
                 <p> Заказчик: {{ el.user.get_full_name }} </p>
-            {% endif %}
+            
             <p> Заказ: {{ el.name }} </p>
             <p> Комплектующие: </p>
 
@@ -21,27 +21,23 @@
             <p> {{ accessories.accessories }} </p>
             {% endfor %}
 
-            {% if not request.user.is_staff%}
-                {% if el.confirmation %}
-                    <p> Статус: подтвержден </p>
-                {% else %}
-                    <p> Статус: ожидает подтверждения </p>
-                {% endif %}
-                {% if el.assembled %}
-                    <p> Статус сборки: собран </p>
-                    <p> Стоимость: {{ el.total_price }}р.</p>
-                {% else %}
-                    <p> Статус сборки: не собран </p>
-                {% endif %}
-            
-                <a href="{% url 'pc:del_order' el.id %}">удалить заказ</a>
-            {% else %}
-                <a href="{% url 'pc:add_collector' el.id %}">взять заказ</a>
-            {% endif %}
+            <a href="{% url 'pc:add_collector' el.id %}">взять заказ</a>
             <hr>
 
         {% endfor %}
-    
+    {% else %}
+        {% for el in accessories %}
+            <p>Название: {{ el.name }}</p>
+            <p>Описание: {{ el.description }}</p>
+            <p>Цена: {{ el.price }}р.</p>
+            <p>Доступно: {{ el.count }}</p>
+            {% if not el.count == 0 %}
+            <a href="{% url 'pc:add_shoppinglist' el.id %}">добавить в корзину</a>
+            {% endif %}
+            
+            <hr>
+        {% endfor %}
+    {% endif %}
 {% endif %}
 
 {% endblock content %}
