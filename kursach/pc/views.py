@@ -273,7 +273,9 @@ def collector_orders(request):
         assembly_order_accessories = el.assembly_order_accessories.all()
         flag_set_assembled = True
         for accessories in assembly_order_accessories:
-            if accessories.count > accessories.accessories.count:
+            if not accessories.count is None and accessories.count < accessories.accessories.count:
+                ...
+            else:
                 flag_set_assembled = False
         print(flag_set_assembled)
         data.append(
