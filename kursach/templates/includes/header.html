@@ -1,23 +1,31 @@
-{% if  request.user.is_staff%}
+{% if request.user.is_superuser %}
     <a href="{% url 'pc:logout' %}">Выйти</a>
     <br>
     <a href="{% url 'pc:home' %}">На главную</a>
     <br>
-    <a href="{% url 'pc:collector_orders' %}">Текушие заказы</a>
-    <br>
-    <a href="{% url 'pc:history_orders' %}">История заказов</a>
+    <a href="http://127.0.0.1:8000/admin/">Управление базой</a>
     <br>
     <a href="{% url 'pc:salary' %}">Зарплаты</a>
     <br>
     <a href="{% url 'pc:analise_order' %}">Анализ заказов на сборку</a>
-    <hr>
 {% else %}
-    <a href="{% url 'pc:logout' %}">Выйти</a>
-    <br>
-    <a href="{% url 'pc:home' %}">На главную</a>
-    <br>
-    <a href="{% url 'pc:user_order' %}">Мои заказы</a>
-    <br>
-    <a href="{% url 'pc:basket' %}">Корзина товаров</a>
-    <hr>
+    {% if  request.user.is_staff%}
+        <a href="{% url 'pc:logout' %}">Выйти</a>
+        <br>
+        <a href="{% url 'pc:home' %}">На главную</a>
+        <br>
+        <a href="{% url 'pc:collector_orders' %}">Текушие заказы</a>
+        <br>
+        <a href="{% url 'pc:history_orders' %}">История заказов</a>
+        <hr>
+    {% else %}
+        <a href="{% url 'pc:logout' %}">Выйти</a>
+        <br>
+        <a href="{% url 'pc:home' %}">На главную</a>
+        <br>
+        <a href="{% url 'pc:user_order' %}">Мои заказы</a>
+        <br>
+        <a href="{% url 'pc:basket' %}">Корзина товаров</a>
+        <hr>
+    {% endif %}
 {% endif %}

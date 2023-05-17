@@ -122,8 +122,8 @@ class AssemblyOrderAccessories(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Комплектующее'
-        verbose_name_plural = 'Комплектующие'
+        verbose_name = 'Комплектующее - Наряд на сборку'
+        verbose_name_plural = 'Комплектующие - Наряды на сборку'
         default_related_name = 'assembly_order_accessories'
 
     def clean(self) -> None:

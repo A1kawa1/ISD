@@ -10,7 +10,11 @@
 {% else %}
     {% include 'includes/header.html' %}
     {% if request.user.is_staff%}
-        {% include 'includes/order_card.html' with home_flag=True orders_flag=False %}
+        {% if request.user.is_superuser %}
+            <h1>Владелец</h1>
+        {% else %}
+            {% include 'includes/order_card.html' with home_flag=True orders_flag=False %}
+        {% endif %}
     {% else %}
         {% for el in accessories %}
             <p>Название: {{ el.name }}</p>
