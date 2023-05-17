@@ -13,16 +13,16 @@
         {% if request.user.is_superuser %}
             <h1>Владелец</h1>
         {% else %}
-            {% include 'includes/order_card.html' with home_flag=True orders_flag=False %}
+            {% include 'includes/order_card.html' with home_flag=True %}
         {% endif %}
     {% else %}
-        {% for el in accessories %}
-            <p>Название: {{ el.name }}</p>
-            <p>Описание: {{ el.description }}</p>
-            <p>Цена: {{ el.price }}р.</p>
-            <p>Доступно: {{ el.count }}</p>
-            {% if not el.count == 0 %}
-            <a href="{% url 'pc:add_shoppinglist' el.id %}">добавить в корзину</a>
+        {% for el in data %}
+            <p>Название: {{ el.accessories.name }}</p>
+            <p>Описание: {{ el.accessories.description }}</p>
+            <p>Цена: {{ el.accessories.price }}р.</p>
+            <p>Доступно: {{ el.accessories.count }}</p>
+            {% if not el.accessories.count == 0 and el.add_shop_list %}
+            <a href="{% url 'pc:add_shoppinglist' el.accessories.id %}">добавить в корзину</a>
             {% endif %}
             
             <hr>

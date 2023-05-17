@@ -42,6 +42,18 @@ class SingleCheque:
     total: int
 
 
+@dataclass
+class AccessoriesHome:
+    accessories: Accessories
+    add_shop_list: bool
+
+
+@dataclass
+class CollectorOrders:
+    orders: AssemblyOrder
+    set_assembled: bool
+
+
 class SignUp(CreateView):
     form_class = CreationForm
     success_url = reverse_lazy('pc:login')
@@ -52,9 +64,21 @@ def home(request):
     user = request.user
     if user.is_authenticated:
         if not user.is_staff:
+            data = []
             accessories = Accessories.objects.all()
+            for el in accessories:
+                shop_accessories = ShoppingList.objects.filter(
+                    user=user,
+                    accessories=el
+                ).exists()
+                data.append(
+                    AccessoriesHome(
+                        accessories=el,
+                        add_shop_list=not shop_accessories
+                    )
+                )
             context = {
-                'accessories': accessories
+                'data': data
             }
         else:
             orders = AssemblyOrder.objects.filter(collector=None)
@@ -81,9 +105,7 @@ def add_shoppinglist(request, id):
         shop.count = 1
     else:
         shop.count += 1
-    accessories.count -= 1
     shop.save()
-    accessories.save()
     return redirect('pc:home')
 
 
@@ -118,9 +140,7 @@ def plus_count(request, id):
         shop.count = 1
     else:
         shop.count += 1
-    accessories.count -= 1
     shop.save()
-    accessories.save()
     return redirect('pc:basket')
 
 
@@ -138,17 +158,12 @@ def minus_count(request, id):
     shop.save()
     if shop.count == 0:
         shop.delete()
-    accessories.count += 1
-    accessories.save()
     return redirect('pc:basket')
 
 
 @login_required
 def del_shop_item(request, id):
     shop = get_object_or_404(ShoppingList, id=id)
-    accessories = shop.accessories
-    accessories.count += shop.count
-    accessories.save()
     shop.delete()
     return redirect('pc:basket')
 
@@ -249,15 +264,29 @@ def add_collector(request, id):
 
 @ login_required
 def collector_orders(request):
+    data = []
     orders = AssemblyOrder.objects.filter(
         collector=request.user,
         assembled=False
     )
+    for el in orders:
+        assembly_order_accessories = el.assembly_order_accessories.all()
+        flag_set_assembled = True
+        for accessories in assembly_order_accessories:
+            if accessories.count > accessories.accessories.count:
+                flag_set_assembled = False
+        print(flag_set_assembled)
+        data.append(
+            CollectorOrders(
+                orders=el,
+                set_assembled=flag_set_assembled
+            )
+        )
     return render(
         request,
         'collector_orders.html',
         {
-            'orders': orders
+            'orders': data
         }
     )
 

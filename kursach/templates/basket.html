@@ -5,7 +5,7 @@
         <p>Название: {{ el.accessories.name }}</p>
         <p>Количество: {{ el.count }}</p>
         <p>Сумма: {% widthratio el.count 1 el.accessories.price %}</p>
-        {% if not el.accessories.count == 0 %}
+        {% if not el.accessories.count <= el.count %}
         <a class="btn btn-primary" href="{% url 'pc:plus_count' el.accessories.id %}">+</a>
         {% endif %}
         <a class="btn btn-primary" href="{% url 'pc:minus_count' el.accessories.id %}">-</a>

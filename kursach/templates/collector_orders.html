@@ -1,5 +1,23 @@
 {% extends "main.html" %}
 {% block content %}
     {% include 'includes/header.html' %}
-    {% include 'includes/order_card.html' with home_flag=False orders_flag=True %}
+    {% for el in orders %}
+        <p> Заказчик: {{ el.orders.user.get_full_name }} </p>
+        <p> Заказ: {{ el.orders.name }} </p>
+        <p> Комплектующие: </p>
+
+        {% for accessories in el.orders.assembly_order_accessories.all %}
+        <p> {{ accessories.accessories.name }} - {{ accessories.count }} </p>
+        {% endfor %}
+        <p> Стоимость: {{ el.orders.total_price }}р.</p>
+
+
+        <a href="http://127.0.0.1:8000/admin/pc/assemblyorder/{{ el.orders.pk }}/change/">настросить комплектующие</a>
+        {% if el.set_assembled %}
+        <br>
+        <a href="{% url 'pc:set_assembled' el.orders.pk %}">подтвердить сборку</a>
+        {% endif %}
+        <hr>
+
+    {% endfor %}
 {% endblock content %}

@@ -8,12 +8,6 @@
 {% endfor %}
 <p> Стоимость: {{ el.total_price }}р.</p>
 
-{% if orders_flag %}
-<a href="http://127.0.0.1:8000/admin/pc/assemblyorder/{{ el.pk }}/change/">настросить комплектующие</a>
-<br>
-<a href="{% url 'pc:set_assembled' el.pk %}">подтвердить сборку</a>
-{% endif %}
-
 {% if home_flag %}
 <a href="{% url 'pc:add_collector' el.id %}">взять заказ</a>
 {% endif %}
