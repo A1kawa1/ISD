@@ -1,16 +1,5 @@
 {% extends "main.html" %}
 {% block content %}
     {% include 'includes/header.html' %}
-    {% for el in orders %}
-    <p> Заказчик: {{ el.user.get_full_name }} </p>
-    <p> Заказ: {{ el.name }} </p>
-    <p> Комплектующие: </p>
-
-    {% for accessories in el.assembly_order_accessories.all %}
-    <p> {{ accessories.accessories }} </p>
-    {% endfor %}
-    <p> Стоимость: {{ el.total_price }}р.</p>
-    <hr>
-
-    {% endfor %}
+    {% include 'includes/order_card.html' with home_flag=False orders_flag=False %}
 {% endblock content %}

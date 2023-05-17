@@ -168,10 +168,10 @@ def add_order(request):
     print(shopping_list)
     assembly_order = AssemblyOrder.objects.create(
         user=user,
-        name=user.get_full_name(),
+        name='None',
         total_price=total_price
     )
-    assembly_order.name = f'{assembly_order.name} от {assembly_order.pub_date.date()}'
+    assembly_order.name = f'№{assembly_order.pk}'
     assembly_order.save()
 
     for el in shopping_list:

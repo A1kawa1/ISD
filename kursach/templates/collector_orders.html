@@ -1,19 +1,5 @@
 {% extends "main.html" %}
 {% block content %}
     {% include 'includes/header.html' %}
-    {% for el in orders %}
-    <p> Заказчик: {{ el.user.get_full_name }} </p>
-    <p> Заказ: {{ el.name }} </p>
-    <p> Комплектующие: </p>
-
-    {% for accessories in el.assembly_order_accessories.all %}
-    <p> {{ accessories.accessories }} </p>
-    {% endfor %}
-
-    <a href="http://127.0.0.1:8000/admin/pc/assemblyorder/{{ el.pk }}/change/">настросить комплектующие</a>
-    <br>
-    <a href="{% url 'pc:set_assembled' el.pk %}">подтвердить сборку</a>
-    <hr>
-
-    {% endfor %}
+    {% include 'includes/order_card.html' with home_flag=False orders_flag=True %}
 {% endblock content %}

@@ -10,21 +10,7 @@
 {% else %}
     {% include 'includes/header.html' %}
     {% if request.user.is_staff%}
-        {% for el in orders %}
-            
-                <p> Заказчик: {{ el.user.get_full_name }} </p>
-            
-            <p> Заказ: {{ el.name }} </p>
-            <p> Комплектующие: </p>
-
-            {% for accessories in el.assembly_order_accessories.all %}
-            <p> {{ accessories.accessories }} </p>
-            {% endfor %}
-
-            <a href="{% url 'pc:add_collector' el.id %}">взять заказ</a>
-            <hr>
-
-        {% endfor %}
+        {% include 'includes/order_card.html' with home_flag=True orders_flag=False %}
     {% else %}
         {% for el in accessories %}
             <p>Название: {{ el.name }}</p>
