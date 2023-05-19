@@ -180,7 +180,6 @@ def add_order(request):
     for el in total:
         total_price += el.get('summ')
 
-    print(shopping_list)
     assembly_order = AssemblyOrder.objects.create(
         user=user,
         name='None',
@@ -231,7 +230,6 @@ def view_cheque(request, id):
                 count=F('count'),
                 total=F('count')*F('accessories__price')
             ))
-    print(data)
     for el in data:
         res_data.append(SingleCheque(
             accessories=get_object_or_404(
@@ -271,13 +269,13 @@ def collector_orders(request):
     )
     for el in orders:
         assembly_order_accessories = el.assembly_order_accessories.all()
-        flag_set_assembled = True
+        flag_set_assembled = False
         for accessories in assembly_order_accessories:
-            if not accessories.count is None and accessories.count < accessories.accessories.count:
-                ...
-            else:
-                flag_set_assembled = False
-        print(flag_set_assembled)
+            if not ((not accessories.count is None) and accessories.count <= accessories.accessories.count):
+                break
+        else:
+            flag_set_assembled = True
+
         data.append(
             CollectorOrders(
                 orders=el,
@@ -301,7 +299,6 @@ def set_assembled(request, id):
     order = get_object_or_404(AssemblyOrder, id=id)
     assembly_order_accessories = order.assembly_order_accessories.all()
     for el in assembly_order_accessories:
-        print(el.accessories, el.count)
         if not el.count is None:
             not_null += 1
             total += el.count * el.accessories.price
@@ -355,8 +352,6 @@ def salary(request):
             data_orders=data_orders
         ))
 
-    for el in data:
-        print(el)
     return render(
         request,
         'salary.html',
@@ -411,8 +406,7 @@ def analise_order(request):
                 total=total
             )
         )
-    for el in data:
-        print(el)
+
     return render(
         request,
         'analise_order.html',
