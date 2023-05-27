@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.date }}
+    <button type="submit" class="btn btn-primary">
+        Подтвердить
+    </button>
+</form>
+<br>
+<table id="printMe" class="lyo">
+    <tr style="border: 1px solid #000;">
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 10%;"><strong>Дата</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 20%;"><strong>Название</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 35%; "><strong>Количество</strong></td>
+        <td class="lyo" style="border-right: 1px solid black; text-align: center; width: 15%; "><strong>Цена</strong></td>
+        <td class="lyo" style="text-align: center;"><strong>Сумма</strong></td>
+    </tr>
+    {% for el in products %}
+        <tr class="lyo" style="border: 1px solid #000; text-align: center;">
+            <td style="border-right: 1px solid black;"> {{ el.date}} </td>
+            <td style="border-right: 1px solid black;"> {{ el.name }} </td>
+            <td style="border-right: 1px solid black;"> {{ el.amount }} </td>
+            <td style="border-right: 1px solid black;"> {{ el.price }} </td>
+            <td> {% widthratio el.amount 1 el.price %} </td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
